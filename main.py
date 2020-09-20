@@ -10,7 +10,7 @@ def readCoronaCases():
     Read english coronavirus cases from csv file
     """
 
-    cases = pd.read_csv("coronavirus-cases_latest.csv")
+    cases = pd.read_csv("data_2020-Sep-02.csv")
     return cases
 
 
@@ -20,9 +20,7 @@ def readFTSEData():
     return FTSEData
 
 def coronavirusDataCleaning(data):
-    data.columns = [c.replace(' ', '_') for c in data.columns]
-    data['clean_date'] = pd.to_datetime(data['Specimen_date'], dayfirst = False, yearfirst = False)
-    #newData = data[data.Area_name == "England"]
+    data['clean_date'] = pd.to_datetime(data['date'], dayfirst = False, yearfirst = False)
     
     return data
 
@@ -51,20 +49,20 @@ def main():
     FTSEData = FTSEDataCleaning(df2)
 
 
-    covidData.sort_values(by=["Daily_lab-confirmed_cases"], inplace=True, ascending=False)
+    covidData.sort_values(by=["newCasesBySpecimenDate"], inplace=True, ascending=False)
 
     #covidData.sort_values(by=["clean_date"], inplace=True, ascending=False)
 
-    covidData['clean_date'] =pd.to_datetime(covidData.Specimen_date)
+    covidData['clean_date'] =pd.to_datetime(covidData.date)
 
     #print(covidData)
 
     nationalCases = covidData[covidData['Area_code'] == "E92000001"]
-    nationalCases.sort_values(by=["Cumulative_lab-confirmed_cases"], inplace=True, ascending=True)
+    nationalCases.sort_values(by=["newCasesBySpecimenDate"], inplace=True, ascending=True)
 
     #print(nationalCases)
 
-    nationalCases.plot(kind="line", x="Specimen_date", y="Daily_lab-confirmed_cases")
+    nationalCases.plot(kind="line", x="date", y="newCasesBySpecimenDate")
 
 
     FTSEData.sort_values(by=["clean_date"], inplace=True, ascending=False)
