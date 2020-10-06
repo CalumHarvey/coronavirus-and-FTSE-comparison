@@ -33,9 +33,10 @@ if __name__ == "__main__":
 
     df.dropna(inplace=True)
     df["newTests"] = df["newTests"].astype(int)
-    df["positiveTestRate"] = 2
-    df["positiveTestRate"] = df["positiveTestRate"].astype(float)
-    df['positiveTestRate'] = list(map(lambda x,y: x/y, df['newCases'],df['newTests']))
+    df["positive Test Percentage"] = 2
+    df["positive Test Percentage"] = df["positive Test Percentage"].astype(float)
+    df['positive Test Percentage'] = list(map(lambda x,y: x/y, df['newCases'],df['newTests']))
+    df["positive Test Percentage"] = df["positive Test Percentage"] * 100
 
     df['date'] = pd.to_datetime(df['date'], dayfirst = False, yearfirst = False)
     df.sort_values(by=["date"], inplace=True, ascending=True)
@@ -45,7 +46,7 @@ if __name__ == "__main__":
     style.use('ggplot')
 
 
-    g = sns.relplot(x="date", y="positiveTestRate", kind="line", data=df, )
+    g = sns.relplot(x="date", y="positive Test Percentage", kind="line", data=df, )
     g.fig.autofmt_xdate()
     plt.show()
 
