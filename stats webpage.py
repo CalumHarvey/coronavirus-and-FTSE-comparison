@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
     print(df)
 
-    style.use('ggplot')
+style.use('ggplot')
 
 
     g = sns.relplot(x="date", y="positive Test Percentage", kind="line", data=df, )
